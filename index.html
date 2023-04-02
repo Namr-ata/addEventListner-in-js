@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addEventListener </title>
+    <style>
+        #div1,
+        #div2 {
+            background-color: rgb(80, 255, 98);
+            padding: 50px;
+        }
+
+        #P1,
+        #P2 {
+            background-color: rgb(137, 97, 97);
+            font-size: 20px;
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">click me</button>
+    <p id="demo"></p>
+    
+
+    <!-- event bubbling-->
+    <div id="div1">
+        <h2>Bubbling:</h2>
+        <p id="P1">Click me!</p>
+    </div><br>
+
+    <div id="div2">
+        <h2>Capturing:</h2>
+        <p id="P2">Click me!</p>
+    </div>
+
+    <!-- Add many event handler to same element-->
+    <script type="text/javascript">
+        x = document.getElementById("btn");
+        x.addEventListener("click", firstFunction);
+        x.addEventListener("mouseover", secondFunction);
+        x.addEventListener("mouseout", thirdFunction);
+
+        //passing parameter
+
+        let m = 45;
+        let n = 2;
+        x.addEventListener("click", product(m, n));
+        function product(a, b) {
+
+            alert(a * b);
+        }
+
+        function firstFunction() {
+            document.
+                getElementById("demo").innerHTML = "Clicked!<br>";
+        }
+        function secondFunction() {
+            document.getElementById("demo").innerHTML = "mouseover!<br>";
+        }
+        function thirdFunction() {
+            document.getElementById("demo").innerHTML = "mouseout!<br>";
+        }
+        // event bubbling
+        /* In bubbling the inner most element's event is handled first and then the outer.
+         capturing the outer most element's event is handled first and then the inner.
+         syntax:   addEventListener(event, function, useCapture);
+        The default value is false, which will use the bubbling , when the value is set to true, the event uses the capturing
+         */
+        document.getElementById("P1").addEventListener("click", function () {
+            alert("You clicked the brown element!");
+        }, false);
+
+        document.getElementById("div1").addEventListener("click", function () {
+            alert("You clicked the green  element!");
+        }, false);
+
+        document.getElementById("P2").addEventListener("click", function () {
+            alert("You clicked the brown element!");
+        }, true);
+
+        document.getElementById("div2").addEventListener("click", function () {
+            alert("You clicked the  green element!");
+        }, true);
+        
+
+    </script>
+</body>
+
+</html>
